@@ -1,12 +1,25 @@
+enum ApiMethod {
+  POST,
+  DELETE,
+  GET,
+}
+
+type TBody = string | TAccount | TCredentials;
 class ServerApi {
-  public processAddAccountRequest(url: string, account: TAccount) {
-    return this.fetch('POST', url, account);
+  private fetchData(method: ApiMethod, body: TBody) {
+    this.fetch(method, url, body);
+  }
+  public processAddAccountRequest(account: TAccount) {
+    return this.fetchData(ApiMethod.POST, account);
   }
 
-  public sendDeleteAccountRequest(url: string, accountId: string) {
-    return this.fetch('DELETE', url, accountId);
+  public sendDeleteAccountRequest(accountId: string) {
+    return this.fetchData(ApiMethod.DELETE, accountId);
   }
 
-  public requestAuth(url: string, credentials: TCredentials) {
-    return this.fetch('GET', url, credentials);
+  public requestAuth(credentials: TCredentials) {
+    return this.fetchData(ApiMethod.GET, credentials);
   }
+}
+
+//Для запроса создал отдельный метод, убрал тем самым дублирование url, а также поработал с типизацией  

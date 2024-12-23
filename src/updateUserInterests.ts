@@ -1,37 +1,25 @@
-const updateUserHandle = (handle) => {
-  if (!isLoggedIn()) {
-    toLoginPage();
+// логика запроса должна быть отдельной сущностью, это уберет дублирование. Также не было проверки на ошибку запроса
+const updateUserData = (route, body) => {
+  try {
+    const token = getToken();
+    const headers = getHeaders(token);
 
-    return;
+    fetch(`${domain}/v1/users/${route}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({
+        body,
+      }),
+    });
+  } catch (error) {
+    console.error(error);
   }
-
-  const token = getToken();
-  const headers = getHeaders(token);
-
-  return fetch(`${domain}/v1/users/handle`, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify({
-      handle,
-    }),
-  });
 };
 
-const updateUserInterests = (interestUUIDs) => {
-  if (!isLoggedIn()) {
-    toLoginPage();
+const updateUserDataWithLoginCheck = (key, value) =>
+  isLoggedIn() ? updateUserData(key, value) : toLoginPage();
 
-    return;
-  }
+const updateUserHandle = (handle) => updateUserDataWithLoginCheck('handle', handle);
 
-  const token = getToken();
-  const headers = getHeaders(token);
-
-  return fetch(`${domain}/v1/users/interests`, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify({
-      interestUUIDs,
-    }),
-  });
-};
+const updateUserInterests = (interestUUIDs) =>
+  updateUserDataWithLoginCheck('interests', interestUUIDs);

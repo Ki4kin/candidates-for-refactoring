@@ -1,4 +1,6 @@
 class FilmController {
+  private popupOpened: boolean = false;
+
   openDetails() {
     const popup = new Popup();
     this.popupOpened = true;
@@ -8,3 +10,5 @@ class FilmController {
     return this.popupOpened;
   }
 }
+
+//Свойство "popupOpened" не существует в типе "FilmController", необходимо его добавить в класс

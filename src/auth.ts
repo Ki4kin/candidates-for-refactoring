@@ -8,7 +8,12 @@ type TGatewayService = {
 };
 
 const auth = (payment: TPayment, gateway: TGatewayService) => {
-  const rcCode = gateway.sendAuth(payment);
-
-  payment.rcCode = rcCode;
+  try {
+    const rcCode = gateway.sendAuth(payment);
+    return { ...payment, rcCode };
+  } catch (error) {
+    console.error('Ошибка авторизации');
+  }
 };
+
+//Отсутствовала обработка возможной ошибки метода sendAuth, возвращать лучше копию объека, а не мутировать исходный

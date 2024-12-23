@@ -1,3 +1,6 @@
-if (!isEmpty(list)) {
-  // код, если список не пуст
+//Для читаемости вынес выражение в переменную и в проверке использую ее
+
+const isListNotEmpty = !isEmpty(list);
+
+if (isListNotEmpty) {
 }

@@ -1,13 +1,13 @@
-function processUserData(user) {
+const isAdult = (user): boolean => {
   // Получаем данные пользователя
-  const userData = getUserData(user);
-
+  const { age } = getUserData(user);
   // Проверяем данные пользователя
-  if (userData.age >= 18) {
-    // Обрабатываем данные
-    processUser(user);
-  } else {
-    // Выводим ошибку
-    console.error('User is under 18');
-  }
+  return age >= 18;
+};
+
+function processUserData(user) {
+  // Обрабатываем данные
+  isAdult(user) ? processUser(user) : console.error('User is under 18');
 }
+
+//Также разделил логику проверки польщователя и обработки данных

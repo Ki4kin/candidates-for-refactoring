@@ -1,3 +1,5 @@
 const match = rawHeaderLine.match(headerPattern);
 
-headers.set(match[1].toLowerCase(), match[2]);
+if (match?.length === 3) headers.set(match[1].toLowerCase(), match[2]);
+
+//Отсутствует проверка возвращаемого значения rawHeaderLine.match(headerPattern)
