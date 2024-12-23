@@ -1,8 +1,12 @@
-function processOrder(item: unknown, isExpress: boolean) {
+const expressOrder = (item: unknown) => {
   // Логика обработки заказа с учетом экспресс-доставки
-  if (isExpress) {
-    // Логика для экспресс-доставки
-  } else {
-    // Логика для стандартной доставки
-  }
+};
+const standartOrder = (item: unknown) => {
+  // Логика для стандартной доставки
+};
+
+function processOrder(item: unknown, isExpress: boolean) {
+  isExpress ? expressOrder(item) : standartOrder(item);
 }
+
+//логику доставок необхоимо вынести из логики обработки

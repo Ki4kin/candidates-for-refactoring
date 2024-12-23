@@ -3,19 +3,17 @@ enum ShapeType {
   Square,
 }
 
+const calculateNumberSquare = (number: number): number => Math.pow(number, 2);
+const multiplyNumbers = (firstNumber: number, secondNumber: number): number => firstNumber * secondNumber
+
 function calculateArea(shape: ShapeType, radiusOrSide: number): number {
-  let area = 0;
-
-  switch (shape) {
-    case ShapeType.Circle:
-      area = Math.PI * Math.pow(radiusOrSide, 2);
-      break;
-    case ShapeType.Square:
-      area = Math.pow(radiusOrSide, 2);
-      break;
-  }
-
-  return area;
+  const firstParam = shape === ShapeType.Circle ? Math.PI : 1;
+  const powedRadiusOrSide = calculateNumberSquare(radiusOrSide);
+  const area = multiplyNumbers(firstParam, powedRadiusOrSide)
+  return +area.toFixed(2);
 }
 
 console.log(calculateArea(ShapeType.Circle, 5)); // Output: 78.54
+
+//Математические операции лучше вынести в отдельные функции, хранящиеся, например, в utils. 
+// SwitchCase, на мой взгляд, не нужен, достаточно сделать проверку первого множителя в зависимости от shape
